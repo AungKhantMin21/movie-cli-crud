@@ -17,9 +17,9 @@ import { db } from './db.mjs';
 
 
 
-function updateDB(jsonContent){
+function updateDB(){
     try {
-        fs.writeFileSync('./db.json', jsonContent, 'utf-8');
+        fs.writeFileSync('./db.json', JSON.stringify(db), 'utf-8');
         // file written successfully
     } catch (err) {
         console.error(err);
@@ -57,9 +57,18 @@ async function app () {
     })
 
     switch (op) {
-        case "create" : await createOp();
-        case "read" : await readOp();
-        case "delete" : await deleteOp();
+        case "create" :
+            await createOp();
+            break;
+        case "read" : 
+            await readOp();
+            break;
+        case "update" :
+            await updateOp();
+            break;
+        case "delete" :
+            await deleteOp();
+            break;
         case "exit" : {
             console.log(`\n${chalk.bgBlue('~ See you soon ~')}\n`)
             process.exit(1);
@@ -117,8 +126,7 @@ async function createOp () {
         spinner.success({text: `${name} is successfully saved.`})
     }
 
-    const jsonContent = JSON.stringify(db);
-    updateDB(jsonContent);
+    updateDB();
 
     await app();
 }
@@ -126,6 +134,64 @@ async function createOp () {
 async function readOp () {
     console.log(db.data);
     await app();
+}
+
+async function updateOp () {
+    const nameList = db.data.map((obj) => {
+        return {name: obj.name, value:obj.name}
+    });
+    const selectedMovie = await select({
+        message : `Select movie you want to delete`,
+        choices : nameList
+    })
+    
+    const foundIndex = db.data.findIndex((obj) => obj.name === selectedMovie );
+    const foundMovie = db.data[foundIndex];
+
+    const name = await input({message : "Enter movie name",default: foundMovie.name});
+
+    const description = await input({message : "Enter movie description",default: foundMovie.description});
+
+    const category = await checkbox({
+        message : `Select movie category of ${name}`,
+        choices : [
+            {
+                name: 'romantic',
+                value: 'romantic',
+                checked: foundMovie.category.includes('romantic')
+            },
+            {
+                name: 'comedy',
+                value: 'comedy',
+                checked: foundMovie.category.includes('comedy')
+            },
+            {
+                name: 'action',
+                value: 'action',
+                checked: foundMovie.category.includes('action')
+            }
+        ],
+    });
+
+    const updatedInfo = {
+        name: name,
+        description: description,
+        category: category
+    }
+
+    
+
+    const spinner = createSpinner('Loading').start();
+    await sleep();
+
+    if(db.data.splice(foundIndex,1,updatedInfo)){
+        spinner.success({text: `${selectedMovie} is successfully updated.`})
+    }
+
+    updateDB();
+
+    await app();
+
 }
 
 async function deleteOp () {
@@ -147,9 +213,8 @@ async function deleteOp () {
             spinner.success({text: `${selectedMovie} is successfully deleted.`})
         }
     }
-    
-    const jsonContent = JSON.stringify(db);
-    updateDB(jsonContent);
+
+    updateDB();
 
     await app();
 }
