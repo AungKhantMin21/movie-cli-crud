@@ -4,8 +4,13 @@
   "description": "cli project with node js for doing CRUD operations inside command line interface",
   "main": "index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AungKhantMin21/movie-cli-crud"
+  },
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start" : "node ."
   },
   "keywords": [],
   "author": "",
