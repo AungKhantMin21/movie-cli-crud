@@ -1,0 +1,21 @@
+{
+  "name": "movie-cli-crud",
+  "version": "1.0.0",
+  "description": "cli project with node js for doing CRUD operations inside command line interface",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^1.1.3",
+    "chalk": "^5.2.0",
+    "chalk-animation": "^2.0.3",
+    "figlet": "^1.6.0",
+    "gradient-string": "^2.0.2",
+    "nanospinner": "^1.1.0"
+  }
+}
