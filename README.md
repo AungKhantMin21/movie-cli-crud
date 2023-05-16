@@ -16,12 +16,14 @@ cli project with node js for doing CRUD operations inside command line interface
     npm start
     ```
 
-## Usage
+
+### Usage
 
 - `create` : Create a new movie in the JSON file.
 - `read` : Read all movies from the JSON file.
 - `update` : Update an existing movie in the JSON file.
 - `delete` : Delete a movie from the JSON file.
 
-## Screenshots
 
+### Screenshots
+<img width="960" alt="image" src="https://github.com/AungKhantMin21/movie-cli-crud/assets/58725895/fbebca20-96ba-4f0d-9932-dc9e908f7ab0">
