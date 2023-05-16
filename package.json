@@ -12,6 +12,7 @@
   "scripts": {
     "start" : "node ."
   },
+  "bin": "./index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
